@@ -5,8 +5,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
-
-import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -15,6 +13,7 @@ public class VentanaPrincipal extends JFrame {
 	//Constantes
 	public static final int ANCHO = 750;
 	public static final int ALTO = (int) ((int)ANCHO*0.65);
+	public static final Color COLOR_FONDO = new Color(217, 217, 219);
 	public static String APP_NAME = "Problem Solver for Uva 558 - Wormholes";
 	//Relaciones con Paneles
 	private PanelPrincipal pPrincipal;
@@ -44,11 +43,6 @@ public class VentanaPrincipal extends JFrame {
 		pArchivo = new PanelArchivo(this);
 		pPrincipal = new PanelPrincipal(this);
 		JPanel aux = new JPanel(new GridLayout(2,1));
-		int val1 = 15;
-		int val2 = 15;
-		this.setBackground(Color.LIGHT_GRAY);
-		Color color = getBackground();
-		aux.setBorder(BorderFactory.createMatteBorder(val1,val2,val1,val2,color));
 		aux.add(pArchivo);
 		aux.add(pGenerar);
 		this.add(aux,BorderLayout.EAST);

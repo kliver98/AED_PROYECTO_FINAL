@@ -17,14 +17,14 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class PanelArchivo extends JPanel implements ActionListener {
 
-	public static final String BUSCAR = "BUSCAR...";
+	public static final String BUSCAR = "BUSCAR";
 	private VentanaPrincipal vent;
 	private JFileChooser fileChooser;
 
 	public PanelArchivo(VentanaPrincipal vent) {
 		super();
 		this.vent = vent;
-		this.setBorder(BorderFactory.createLineBorder(Color.BLACK,1));
+		this.setBorder(BorderFactory.createMatteBorder(10,5,5,10,VentanaPrincipal.COLOR_FONDO));
 		init();
 	}
 	
