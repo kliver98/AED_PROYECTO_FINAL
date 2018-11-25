@@ -1,6 +1,5 @@
 package view;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -24,11 +23,11 @@ public class PanelArchivo extends JPanel implements ActionListener {
 	public PanelArchivo(VentanaPrincipal vent) {
 		super();
 		this.vent = vent;
-		this.setBorder(BorderFactory.createMatteBorder(10,5,5,10,VentanaPrincipal.COLOR_FONDO));
 		init();
 	}
 	
 	private void init() {
+		this.setBorder(BorderFactory.createMatteBorder(10,5,5,10,VentanaPrincipal.COLOR_FONDO));
 		this.setLayout(new GridLayout(3,1));
 		this.setPreferredSize(new Dimension((int)(VentanaPrincipal.ANCHO/3.5),(int)(VentanaPrincipal.ALTO/2)));
 		fileChooser = new JFileChooser();

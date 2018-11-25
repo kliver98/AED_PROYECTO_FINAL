@@ -1,6 +1,5 @@
 package view;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -22,11 +21,11 @@ public class PanelGenerar extends JPanel implements ActionListener {
 	public PanelGenerar(VentanaPrincipal vent) {
 		super();
 		this.vent = vent;
-		this.setBorder(BorderFactory.createMatteBorder(5,5,10,10,VentanaPrincipal.COLOR_FONDO));
 		init();
 	}
 	
 	private void init() {
+		this.setBorder(BorderFactory.createMatteBorder(5,5,10,10,VentanaPrincipal.COLOR_FONDO));
 		this.setLayout(new GridLayout(4,1));
 		this.setPreferredSize(new Dimension((int)(VentanaPrincipal.ANCHO/3.5),(int)(VentanaPrincipal.ALTO/2)));
 		JLabel informacion = new JLabel("Generar casos de prueba");
@@ -54,7 +53,7 @@ public class PanelGenerar extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		String str = e.getActionCommand();
 		if (str.equals(GENERAR)) {
-			System.out.println("Generar");
+			
 		}
 	}
 	

@@ -45,8 +45,8 @@ public class VentanaPrincipal extends JFrame {
 		JPanel aux = new JPanel(new GridLayout(2,1));
 		aux.add(pArchivo);
 		aux.add(pGenerar);
-		this.add(aux,BorderLayout.EAST);
-		this.add(pPrincipal,BorderLayout.CENTER);
+		add(aux,BorderLayout.EAST);
+		add(pPrincipal,BorderLayout.CENTER);
 	}
 	
 	public static void main(String[] args) {
