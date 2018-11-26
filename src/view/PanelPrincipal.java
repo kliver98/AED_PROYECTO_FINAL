@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -18,8 +19,8 @@ import javax.swing.SwingConstants;
 @SuppressWarnings("serial")
 public class PanelPrincipal extends JPanel implements ActionListener {
 
-	public static final String SOLVE = "SOLVE";
-	public static final String DELETE = "DELETE";
+	public static final String SOLVE = "SOLUCIONAR";
+	public static final String DELETE = "BORRAR";
 	public static final String GRAPHIC = "Gráfica";
 	public static final String[] OPTIONS_TIPE_ALG = {"Tipo de Algoritmo","Bellman Ford","Dijkstra"};
 	public static final String[] OPTIONS_VERSION_GRAPH = {"Versión del grafo","Lista de adyacencias","Matriz de adyacencias"};
@@ -90,7 +91,21 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 	}
 	
 	public void changeTime(long tiempo) {
+		infTime.setForeground(Color.BLACK);
 		infTime.setText("Tiempo que tardo el algoritmo en encontrar la solución: "+tiempo+" ns");
+	}
+	
+	public void error(String message) {
+		infTime.setText(message);
+		infTime.setForeground(Color.RED);
+	}
+	
+	public void changeOutput(String data) {
+		output.setText(data);
+	}
+	
+	public void changeInput(String data) {
+		input.setText(data);
 	}
 
 	@Override
@@ -108,8 +123,16 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 				boolean BL = OPTIONS_TIPE_ALG[tipeAlg.getSelectedIndex()].equals(OPTIONS_TIPE_ALG[1]) && OPTIONS_VERSION_GRAPH[versionGraph.getSelectedIndex()].equals(OPTIONS_VERSION_GRAPH[1]); //Bellman y List
 				boolean DL = OPTIONS_TIPE_ALG[tipeAlg.getSelectedIndex()].equals(OPTIONS_TIPE_ALG[2]) && OPTIONS_VERSION_GRAPH[versionGraph.getSelectedIndex()].equals(OPTIONS_VERSION_GRAPH[1]); //Dijkstra y List
 				boolean DM = OPTIONS_TIPE_ALG[tipeAlg.getSelectedIndex()].equals(OPTIONS_TIPE_ALG[2]) && OPTIONS_VERSION_GRAPH[versionGraph.getSelectedIndex()].equals(OPTIONS_VERSION_GRAPH[2]); //Dijkstra y Matrix
-				
-			}
+				if (BM)
+					main.solveByBellmanMatrix(input.getText());
+				else if (BL)
+					main.solveByBellmanList(input.getText());
+				else if (DM)
+					main.solveByDijkstraMatrix(input.getText());
+				else if (DL)
+					main.solveByDijkstraList(input.getText());
+			} else
+				error("SELECCIONE TIPO DE ALGORITMO Y VERSION DEL GRAFO A USAR");
 		} else if (str.equals(GRAPHIC)) {
 			main.openJDialogGraphic(0,new int[][][] {});
 		}

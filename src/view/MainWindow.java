@@ -5,7 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
-
+import model.Model;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -21,13 +21,15 @@ public class MainWindow extends JFrame {
 	private PanelPrincipal pPrincipal;
 	private PanelGenerate pGenerate;
 	private PanelFile pFile;
-	
+	//Relacion con Modelo
+	private Model model;
 	//Constructor
 	public MainWindow() {
 		init();
 	}
 	
 	private void init() {
+		model = new Model();
 		Dimension dm = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setLayout(new BorderLayout());
 		this.setTitle(APP_NAME);
@@ -60,24 +62,56 @@ public class MainWindow extends JFrame {
 		pPrincipal.changeTime(tiempo);
 	}
 	
-	public void solveByBellmanMatrix() {
-		long time = 0;
-		changeTime(time);
+	public void solveByBellmanMatrix(String data) {
+		String[] solved = model.solveByBellmanMatrix(data); 
+		long time = Long.parseLong(solved[0]);
+		if (time==-1)
+			pPrincipal.changeOutput("ERROR DE ENTRADA");
+		else {
+			pPrincipal.changeOutput(solved[1]);
+			changeTime(time);
+		}
 	}
 	
-	public void solveByBellmanList() {
-		long time = 0;
-		changeTime(time);
+	public void solveByBellmanList(String data) {
+		String[] solved = model.solveByBellmanList(data); 
+		long time = Long.parseLong(solved[0]);
+		if (time==-1)
+			pPrincipal.changeOutput("ERROR DE ENTRADA");
+		else {
+			pPrincipal.changeOutput(solved[1]);
+			changeTime(time);
+		}
 	}
 	
-	public void solveByDijkstraMatrix() {
-		long time = 0;
-		changeTime(time);
+	public void solveByDijkstraMatrix(String data) {
+		String[] solved = model.solveByDijkstraMatrix(data); 
+		long time = Long.parseLong(solved[0]);
+		if (time==-1)
+			pPrincipal.changeOutput("ERROR DE ENTRADA");
+		else {
+			pPrincipal.changeOutput(solved[1]);
+			changeTime(time);
+		}
 	}
 	
-	public void solveByDijkstraList() {
-		long time = 0;
-		changeTime(time);
+	public void solveByDijkstraList(String data) {
+		String[] solved = model.solveByDijkstraList(data); 
+		long time = Long.parseLong(solved[0]);
+		if (time==-1)
+			pPrincipal.changeOutput("ERROR DE ENTRADA");
+		else {
+			pPrincipal.changeOutput(solved[1]);
+			changeTime(time);
+		}
+	}
+	
+	public String convertFileToString(String path) {
+		return model.convertFileToString(path);
+	}
+	
+	public void changeInput(String data) {
+		pPrincipal.changeInput(data);
 	}
 	
 	@SuppressWarnings("unused")

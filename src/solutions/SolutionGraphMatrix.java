@@ -5,7 +5,6 @@ import java.util.*;
 
 public class SolutionGraphMatrix {
 	
-	/**
 	public static void main(String[] args) throws IOException{
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
@@ -17,7 +16,7 @@ public class SolutionGraphMatrix {
 			
 			int V = Integer.parseInt(line[0]), E = Integer.parseInt(line[1]);
 			
-			GraphMatrix<Integer, String> graphMatrix = new GraphMatrix<>(V, true);
+			GraphBellmanMatrix<Integer, String> GraphBellmanMatrix = new GraphBellmanMatrix<>(V, true);
 			
 			while (E-->0) {
 				line = in.readLine().split(" ");
@@ -26,21 +25,20 @@ public class SolutionGraphMatrix {
 				int e = Integer.parseInt(line[1]);
 				int w = Integer.parseInt(line[2]);
 				
-				graphMatrix.addEdge(s, e, w);
+				GraphBellmanMatrix.addEdge(s, e, w);
 			}
 			
-			out.write((graphMatrix.BellmanFord(0)?"possible\n":"not possible\n"));
+			out.write((GraphBellmanMatrix.BellmanFord(0)?"possible\n":"not possible\n"));
 		}
 		
 		in.close();
 		out.close();
 	}
-	**/
 	
 	/**
 	 */
 	@SuppressWarnings("unchecked")
-	public static class GraphMatrix<V extends Comparable<V>, A extends Comparable<A>> {
+	public static class GraphBellmanMatrix<V extends Comparable<V>, A extends Comparable<A>> {
 		/**
 		 * Constante que representa el Integer.MAX_VALUE
 		 */
@@ -77,7 +75,7 @@ public class SolutionGraphMatrix {
 		/**
 		 * Método constructor del Grafo Matriz
 		 */
-		public GraphMatrix(int v) {
+		public GraphBellmanMatrix(int v) {
 			directed = false;
 			nextVertex = 0;
 			adjacencyMatriz = new TreeSet[v][v];
@@ -92,7 +90,7 @@ public class SolutionGraphMatrix {
 		 * @param directed
 		 *            : True si el grafo es dirigido o false en caso contrario
 		 */
-		public GraphMatrix(int v, boolean directed) {
+		public GraphBellmanMatrix(int v, boolean directed) {
 			this.directed = directed;
 			nextVertex = 0;
 			adjacencyMatriz = new TreeSet[v][v];

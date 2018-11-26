@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -51,7 +50,8 @@ public class PanelFile extends JPanel implements ActionListener {
 		if (str.equals(SEARCH)) {
 			int res = fileChooser.showOpenDialog(this);
 			if (res == JFileChooser.APPROVE_OPTION) {
-				File file = fileChooser.getSelectedFile();
+				String data = main.convertFileToString(fileChooser.getSelectedFile().getPath());
+				main.changeInput(data);
 			}
 		}
 	}
