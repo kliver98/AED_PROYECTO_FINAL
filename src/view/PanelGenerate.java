@@ -13,24 +13,24 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
-public class PanelGenerar extends JPanel implements ActionListener {
+public class PanelGenerate extends JPanel implements ActionListener {
 
-	public static final String GENERAR = "Generar";
-	private VentanaPrincipal vent;
+	public static final String GENERATE = "Generar";
+	private MainWindow main;
 
-	public PanelGenerar(VentanaPrincipal vent) {
+	public PanelGenerate(MainWindow main) {
 		super();
-		this.vent = vent;
+		this.main = main;
 		init();
 	}
 	
 	private void init() {
-		this.setBorder(BorderFactory.createMatteBorder(5,5,10,10,VentanaPrincipal.COLOR_FONDO));
+		this.setBorder(BorderFactory.createMatteBorder(5,5,10,10,MainWindow.BACKGROUND));
 		this.setLayout(new GridLayout(4,1));
-		this.setPreferredSize(new Dimension((int)(VentanaPrincipal.ANCHO/3.5),(int)(VentanaPrincipal.ALTO/2)));
+		this.setPreferredSize(new Dimension((int)(MainWindow.WIDTH/3.5),(int)(MainWindow.HEIGHT/2)));
 		JLabel informacion = new JLabel("Generar casos de prueba");
 		informacion.setHorizontalAlignment(SwingConstants.CENTER);
-		JButton generar = new JButton(GENERAR);
+		JButton generar = new JButton(GENERATE);
 		generar.addActionListener(this);
 		generar.setBorder(BorderFactory.createMatteBorder(5,10,5,10,getBackground()));
 		JTextField cantidad = new JTextField();
@@ -52,7 +52,7 @@ public class PanelGenerar extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String str = e.getActionCommand();
-		if (str.equals(GENERAR)) {
+		if (str.equals(GENERATE)) {
 			
 		}
 	}

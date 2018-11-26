@@ -14,19 +14,19 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
-public class JDialogGrafica extends JDialog implements ActionListener,WindowListener {
+public class JDialogGraphic extends JDialog implements ActionListener,WindowListener {
 	
-	public static final String CERRAR = "Cerrar ventana";
-	private int cantidadVertices;
-	private int[][][] aristas;
+	public static final String CLOSE = "Cerrar ventana";
+	private int numberVertexes;
+	private int[][][] edges;
 	private JPanel canvas;
-	private VentanaPrincipal vent;
+	private MainWindow main;
 	
-	public JDialogGrafica(int cantidadVertices, int[][][] aristas, VentanaPrincipal vent) {
-		super(vent);
-		this.cantidadVertices = cantidadVertices;
-		this.aristas = aristas;
-		this.vent = vent;
+	public JDialogGraphic(int numberVertexes, int[][][] edges, MainWindow main) {
+		super(main);
+		this.numberVertexes = numberVertexes;
+		this.edges = edges;
+		this.main = main;
 		this.addWindowListener(this);
 		init();
 		pintarGrafo();
@@ -35,16 +35,16 @@ public class JDialogGrafica extends JDialog implements ActionListener,WindowList
 	private void init() {
 		canvas = new JPanel(new GridLayout(1,1));
 		setLayout(new BorderLayout());
-		setPreferredSize(new Dimension(VentanaPrincipal.ANCHO,VentanaPrincipal.ALTO));
+		setPreferredSize(new Dimension(MainWindow.WIDTH,MainWindow.HEIGHT));
 		setResizable(false);
 		Dimension dm = Toolkit.getDefaultToolkit().getScreenSize();
-		this.setLocation(((int)(dm.getWidth()/2)-(VentanaPrincipal.ANCHO/2)),((int)(dm.getHeight()/2))-(VentanaPrincipal.ALTO/2));
+		this.setLocation(((int)(dm.getWidth()/2)-(MainWindow.WIDTH/2)),((int)(dm.getHeight()/2))-(MainWindow.HEIGHT/2));
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setTitle("Gráfica auxiliar de los sistemas de estrellas que la cientifica debe realizar");
 		JPanel aux = new JPanel(new BorderLayout());
-		aux.setBorder(BorderFactory.createMatteBorder(10,0,10,5,VentanaPrincipal.COLOR_FONDO));
-		canvas.setBorder(BorderFactory.createMatteBorder(10,10,10,10,VentanaPrincipal.COLOR_FONDO));
-		JButton cerrar = new JButton(CERRAR);
+		aux.setBorder(BorderFactory.createMatteBorder(10,0,10,5,MainWindow.BACKGROUND));
+		canvas.setBorder(BorderFactory.createMatteBorder(10,10,10,10,MainWindow.BACKGROUND));
+		JButton cerrar = new JButton(CLOSE);
 		cerrar.addActionListener(this);
 		aux.add(cerrar,BorderLayout.SOUTH);
 		add(aux,BorderLayout.EAST);
@@ -60,7 +60,7 @@ public class JDialogGrafica extends JDialog implements ActionListener,WindowList
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String str = e.getActionCommand();
-		if (str.equals(CERRAR)) {
+		if (str.equals(CLOSE)) {
 			this.dispose();
 			windowClosing(null);
 		}
@@ -80,7 +80,7 @@ public class JDialogGrafica extends JDialog implements ActionListener,WindowList
 
 	@Override
 	public void windowClosing(WindowEvent e) {
-		vent.setVisible(true);
+		main.setVisible(true);
 	}
 
 	@Override
