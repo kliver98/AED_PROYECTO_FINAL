@@ -21,7 +21,7 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 
 	public static final String SOLVE = "SOLUCIONAR";
 	public static final String DELETE = "BORRAR";
-	public static final String GRAPHIC = "Gráfica";
+	public static final String GRAPHIC = "GRÁFICA 1mer caso";
 	public static final String[] SOLUTION_TYPE = {"Seleccione tipo de solución","Bellman Ford con Matriz de adyacencias","Dijkstra con Lista de adyacencias"};
 	private JTextArea input;
 	private JTextArea output;
@@ -121,10 +121,20 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 					main.solveByBellmanMatrix(input.getText());
 				else if (DL)
 					main.solveByDijkstraList(input.getText());
-			} else
+			} else {
 				error("SELECCIONE TIPO DE SOLUCIÓN");
+			}
 		} else if (str.equals(GRAPHIC)) {
-			main.openJDialogGraphic(0,new int[][][] {});
+			if (input.getText().isEmpty()) {
+				error("ENTRADA VACÍA");
+				return;
+			}
+			int[][] edges = main.getFirstEdges(input.getText());
+			if (edges==null) {
+				error("ERROR DE ENTRADA");
+				return;
+			}
+			main.openJDialogGraphic(edges);
 		}
 	}
 	

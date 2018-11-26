@@ -1,13 +1,17 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.Random;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -17,19 +21,19 @@ import javax.swing.JPanel;
 public class JDialogGraphic extends JDialog implements ActionListener,WindowListener {
 	
 	public static final String CLOSE = "Cerrar ventana";
-	private int numberVertexes;
-	private int[][][] edges;
+	private Node[] nodes;
+	private int V;
 	private JPanel canvas;
+	private Random rd = new Random(System.nanoTime());
 	private MainWindow main;
 	
-	public JDialogGraphic(int numberVertexes, int[][][] edges, MainWindow main) {
+	public JDialogGraphic(int[][] edges, MainWindow main) {
 		super(main);
-		this.numberVertexes = numberVertexes;
-		this.edges = edges;
+		V = edges[0][0];
+		convertNodes(edges);
 		this.main = main;
 		this.addWindowListener(this);
 		init();
-		pintarGrafo();
 	}
 	
 	private void init() {
@@ -53,8 +57,30 @@ public class JDialogGraphic extends JDialog implements ActionListener,WindowList
 		pack();
 	}
 	
-	public void pintarGrafo() {
-		
+	public void convertNodes(int[][] edges) {
+		int x = 13;
+		int y = 36;
+		nodes = new Node[V];
+		for (int i = 0; i < V; i++) {
+			int xP = rd.nextInt(MainWindow.WIDTH-(int)((x+Node.d/2)*4.5))+x+Node.d/2,yP = rd.nextInt(MainWindow.HEIGHT-(int)((y+Node.d/2)*1.6))+y+Node.d/2;
+			nodes[i] = new Node(xP,yP,i);
+		}
+		for (int i = 1; i < edges.length; i++) {
+			int id1 = edges[i][0],id2 = edges[i][1];
+			int x1 = nodes[id1].getX(),x2 = nodes[id2].getX(),y1 = nodes[id1].getY(),y2 = nodes[id2].getY();
+			Join act = new Join(x1,y1,x2,y2,edges[i][2]+"");
+			act.setId1(id1);
+			act.setId2(id2);
+			nodes[id1].getJoins().add(act);
+		}
+	}
+	
+	@Override
+	public void paint(Graphics g) {
+		super.paint(g);
+		for (Node node : nodes) {
+			node.pintar(g);
+		}
 	}
 
 	@Override
