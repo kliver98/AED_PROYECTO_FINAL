@@ -5,20 +5,24 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.BorderFactory;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
+@SuppressWarnings("serial")
 public class PanelPrincipal extends JPanel implements ActionListener {
 
 	public static final String RESOLVER = "Resolver";
 	public static final String BORRAR = "Borrar";
 	public static final String GRAFICA = "Gráfica";
+	public static final String TIPO_ALG = "Tipo de algoritmo a usar";
+	public static final String VERSION_GRAFO = "Versión del grafo a usar";
 	private JTextArea input;
 	private JTextArea output;
 	private JLabel infTiempo;
@@ -61,26 +65,43 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 	    auxOut.setBorder(null);
 	    add(auxIn);
 	    add(auxOut);
+	    JPanel aux = new JPanel(new GridLayout(1,3));
+	    JPanel aux2 =new JPanel(new GridLayout(3,1));
+	    JComboBox<String> tipoAlg = new JComboBox<String>();
+	    JComboBox<String> versionGrafo = new JComboBox<String>();
+	    aux2.add(tipoAlg);
+	    aux2.add(versionGrafo);
+	    aux2.setBorder(BorderFactory.createMatteBorder(10,50,10,50,vent.getBackground()));
+	    DefaultComboBoxModel<String> tipoAlgData = new DefaultComboBoxModel<String>(new String[] {"Tipo de Algoritmo","Bellman Ford","Dijkstra"});
+	    DefaultComboBoxModel<String> versionGrafoData = new DefaultComboBoxModel<String>(new String[] {"Versión del grafo","Lista de adyacencias","Matriz de adyacencias"});
+	    tipoAlg.setModel(tipoAlgData);
+	    versionGrafo.setModel(versionGrafoData);
 	    infTiempo = new JLabel("Tiempo que tardo el algoritmo en encontrar la solución: NA");
 	    infTiempo.setHorizontalAlignment(SwingConstants.CENTER);
-	    add(infTiempo);
-	    JPanel aux = new JPanel(new GridLayout(1,3));
+	    aux2.add(infTiempo);
+	    add(aux2);
 	    aux.add(borrar);
 	    aux.add(grafica);
 	    aux.add(resolver);
 	    aux.setBorder(BorderFactory.createMatteBorder(10,10,10,10,vent.getBackground()));
 	    add(aux);
 	}
+	
+	public void cambiarTiempo(int tiempo) {
+		infTiempo.setText("Tiempo que tardo el algoritmo en encontrar la solución: "+tiempo+" ns");
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String str = e.getActionCommand();
 		if (str.equals(BORRAR)) {
-			
+			input.setText("");
+			output.setText("");
+			infTiempo.setText("Tiempo que tardo el algoritmo en encontrar la solución: NA");
 		} else if (str.equals(RESOLVER)) {
 			
 		} else if (str.equals(GRAFICA)) {
-			
+			vent.abrirJDialogGrafica(0,new int[][][] {});
 		}
 	}
 	

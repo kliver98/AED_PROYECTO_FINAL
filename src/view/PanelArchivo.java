@@ -5,7 +5,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -14,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+@SuppressWarnings("serial")
 public class PanelArchivo extends JPanel implements ActionListener {
 
 	public static final String BUSCAR = "BUSCAR";
@@ -31,7 +31,7 @@ public class PanelArchivo extends JPanel implements ActionListener {
 		this.setLayout(new GridLayout(3,1));
 		this.setPreferredSize(new Dimension((int)(VentanaPrincipal.ANCHO/3.5),(int)(VentanaPrincipal.ALTO/2)));
 		fileChooser = new JFileChooser();
-		fileChooser.setFileFilter(new FileNameExtensionFilter("Únicamente archivos de texto","txt","in"));
+		fileChooser.setFileFilter(new FileNameExtensionFilter("Archivos de texto","txt","in"));
 		fileChooser.setAcceptAllFileFilterUsed(false);
 		JLabel informacion = new JLabel("Cargar archivo de entrada");
 		informacion.setHorizontalAlignment(SwingConstants.CENTER);

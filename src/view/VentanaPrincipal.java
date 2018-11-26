@@ -5,9 +5,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+@SuppressWarnings("serial")
 public class VentanaPrincipal extends JFrame {
 
 	//Constantes
@@ -49,8 +51,14 @@ public class VentanaPrincipal extends JFrame {
 		add(pPrincipal,BorderLayout.CENTER);
 	}
 	
+	public void abrirJDialogGrafica(int cantidadVertices, int[][][] aristas) {
+		this.setVisible(false);
+		new JDialogGrafica(cantidadVertices,aristas,this);
+	}
+	
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {
-		VentanaPrincipal main = new VentanaPrincipal();
+		VentanaPrincipal vent = new VentanaPrincipal();
 	}
 
 }
