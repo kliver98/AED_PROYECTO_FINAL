@@ -42,10 +42,10 @@ public class GraphMatrix<V extends Comparable<V>, A extends Comparable<A>> {
 	/**
 	 * Método constructor del Grafo Matriz
 	 */
-	public GraphMatrix() {
+	public GraphMatrix(int v) {
 		directed = false;
 		nextVertex = 0;
-		adjacencyMatriz = new TreeSet[10][10];
+		adjacencyMatriz = new TreeSet[v][v];
 		vertexes = new HashSet<>();
 		indVer = new HashMap<>();
 		verInd = new TreeMap<>();
@@ -57,10 +57,10 @@ public class GraphMatrix<V extends Comparable<V>, A extends Comparable<A>> {
 	 * @param directed
 	 *            : True si el grafo es dirigido o false en caso contrario
 	 */
-	public GraphMatrix(boolean directed) {
+	public GraphMatrix(int v, boolean directed) {
 		this.directed = directed;
 		nextVertex = 0;
-		adjacencyMatriz = new TreeSet[10][10];
+		adjacencyMatriz = new TreeSet[v][v];
 		vertexes = new HashSet<>();
 		indVer = new HashMap<>();
 		verInd = new TreeMap<>();
@@ -85,9 +85,9 @@ public class GraphMatrix<V extends Comparable<V>, A extends Comparable<A>> {
 
 			indVer.put(toAdd, nextVertex);
 
-			if (nextVertex >= getNumberVertexes()) {
-				ampliarMatriz();
-			}
+//			if (nextVertex >= getNumberVertexes()) {
+//				ampliarMatriz();
+//			}
 
 			nextVertex++;
 
@@ -420,24 +420,24 @@ public class GraphMatrix<V extends Comparable<V>, A extends Comparable<A>> {
 
 	}
 
-	/**
-	 * Este método se encarga de aumentar el tamaño de la matriz en caso se que
-	 * se quiera exceder su capacidad actual
-	 */
-	private void ampliarMatriz() {
-
-		TreeSet<Edge<V, A>>[][] nueva = new TreeSet[(int) (adjacencyMatriz.length
-				* 1.5)][(int) (adjacencyMatriz[0].length * 1.5)];
-
-		for (int i = 0; i < adjacencyMatriz.length; i++) {
-			for (int j = 0; j < adjacencyMatriz[0].length; j++) {
-				nueva[i][j] = adjacencyMatriz[i][j];
-			}
-		}
-
-		adjacencyMatriz = nueva;
-
-	}
+//	/**
+//	 * Este método se encarga de aumentar el tamaño de la matriz en caso se que
+//	 * se quiera exceder su capacidad actual
+//	 */
+//	private void ampliarMatriz() {
+//
+//		TreeSet<Edge<V, A>>[][] nueva = new TreeSet[(int) (adjacencyMatriz.length
+//				* 1.5)][(int) (adjacencyMatriz[0].length * 1.5)];
+//
+//		for (int i = 0; i < adjacencyMatriz.length; i++) {
+//			for (int j = 0; j < adjacencyMatriz[0].length; j++) {
+//				nueva[i][j] = adjacencyMatriz[i][j];
+//			}
+//		}
+//
+//		adjacencyMatriz = nueva;
+//
+//	}
 
 	/**
 	 * Este método se encarga de hacer un recorrido en amplitud sobre el grafo
@@ -589,6 +589,60 @@ public class GraphMatrix<V extends Comparable<V>, A extends Comparable<A>> {
 			}
 		}
 
+	}
+	
+	/**
+	 * Algoritmo de Bellman Ford
+	 * Algoritmo que se encarga de mirar si existe ciclos negativos en el grafo
+	 * 
+	 * @param start 
+	 * 				V parametro generico que representa el inicio del grafo
+	 * @return booleano 
+	 * 					representa si hay ciclos o no
+	 */
+	public boolean BellmanFord(V start) {
+		Vertex<V> inicio = searchVertex(start);
+		boolean st = false;
+		
+		if (inicio != null) {
+			HashMap<V, Long> dist = new HashMap<>();
+			
+			for (Vertex<V> vertex : vertexes) 
+				dist.put(vertex.getData(), (long) Integer.MAX_VALUE);
+			
+			dist.replace(inicio.getData(), 0l);
+			
+			for (int i = 0; i < adjacencyMatriz.length; i++) {
+				for (int j = 0; j < adjacencyMatriz[i].length; j++) {
+					if (adjacencyMatriz[i][j]!=null) {
+						for (Edge<V, A> edge: adjacencyMatriz[i][j]) {
+							Vertex<V> u = edge.getStart();
+							Vertex<V> v = edge.getEnd();
+							long w = edge.getWeight();
+							
+							if (dist.get(u.getData())!=Integer.MAX_VALUE && dist.get(u.getData())+w<dist.get(v.getData()))
+								dist.replace(v.getData(), dist.get(u.getData())+w);
+						}
+					}
+				}
+			}
+			
+			for (int i = 0; i < adjacencyMatriz.length; i++) {
+				for (int j = 0; j < adjacencyMatriz[i].length; j++) {
+					if (adjacencyMatriz[i][j]!=null) {
+						for (Edge<V, A> edge: adjacencyMatriz[i][j]) {
+							Vertex<V> u = edge.getStart();
+							Vertex<V> v = edge.getEnd();
+							long w = edge.getWeight();
+							
+							if (dist.get(u.getData())!=Integer.MAX_VALUE && dist.get(u.getData())+w<dist.get(v.getData()))
+								st = true;
+						}
+					}
+				}
+			}
+		}
+		return st;
 	}
 
 	/**
