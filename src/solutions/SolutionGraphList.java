@@ -16,7 +16,7 @@ public class SolutionGraphList {
 			
 			int E = Integer.parseInt(line[1]);
 			
-			GraphList<Integer, String> graphList = new GraphList<>(true);
+			GraphDijkstraList<Integer, String> GraphDijkstraList = new GraphDijkstraList<>(true);
 			
 			
 			while (E-->0) {
@@ -26,12 +26,12 @@ public class SolutionGraphList {
 				int e = Integer.parseInt(line[1]);
 				int w = Integer.parseInt(line[2]);
 				
-				graphList.addEdge(s, e, w);
+				GraphDijkstraList.addEdge(s, e, w);
 				
 //				graph.addEdge(s, e, w);
 			}
 			
-			out.write((graphList.Dijkstra(0)?"possible\n":"not possible\n"));
+			out.write((GraphDijkstraList.Dijkstra(0)?"possible\n":"not possible\n"));
 		}
 		
 		in.close();
@@ -42,7 +42,7 @@ public class SolutionGraphList {
 	
 	/**
 	 */
-	public static class GraphList<V extends Comparable<V>, A extends Comparable<A>> {
+	public static class GraphDijkstraList<V extends Comparable<V>, A extends Comparable<A>> {
 		
 		/**
 		 * Lista de Adyacencia. Nota: Modelado como multigrafo (Se utiliza ArrayList
@@ -62,7 +62,7 @@ public class SolutionGraphList {
 		/**
 		 * Método constructor del grafo de listas adyacentes
 		 */
-		public GraphList() {
+		public GraphDijkstraList() {
 			
 			adjacencyList = new HashMap<>();
 			vertexes = new HashSet<>();
@@ -76,7 +76,7 @@ public class SolutionGraphList {
 		 * @param directed
 		 *            Parámetro de entrada que define si es un grafo dirigido o no
 		 */
-		public GraphList(boolean directed) {
+		public GraphDijkstraList(boolean directed) {
 			
 			adjacencyList = new HashMap<>();
 			vertexes = new HashSet<>();

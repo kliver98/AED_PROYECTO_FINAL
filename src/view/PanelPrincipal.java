@@ -22,13 +22,11 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 	public static final String SOLVE = "SOLUCIONAR";
 	public static final String DELETE = "BORRAR";
 	public static final String GRAPHIC = "Gráfica";
-	public static final String[] OPTIONS_TIPE_ALG = {"Tipo de Algoritmo","Bellman Ford","Dijkstra"};
-	public static final String[] OPTIONS_VERSION_GRAPH = {"Versión del grafo","Lista de adyacencias","Matriz de adyacencias"};
+	public static final String[] SOLUTION_TYPE = {"Seleccione tipo de solución","Bellman Ford con Matriz de adyacencias","Dijkstra con Lista de adyacencias"};
 	private JTextArea input;
 	private JTextArea output;
 	private JLabel infTime;
-	private JComboBox<String> tipeAlg;
-    private JComboBox<String> versionGraph;
+	private JComboBox<String> solutionType;
 	private MainWindow main;
 
 	public PanelPrincipal(MainWindow main) {
@@ -69,18 +67,13 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 	    add(auxIn);
 	    add(auxOut);
 	    JPanel aux = new JPanel(new GridLayout(1,3));
-	    JPanel aux2 =new JPanel(new GridLayout(3,1));
-	    tipeAlg = new JComboBox<String>();
-	    versionGraph = new JComboBox<String>();
-	    aux2.add(tipeAlg);
-	    aux2.add(versionGraph);
+	    JPanel aux2 =new JPanel(new GridLayout(2,1));
 	    aux2.setBorder(BorderFactory.createMatteBorder(10,50,10,50,main.getBackground()));
-	    DefaultComboBoxModel<String> tipoAlgData = new DefaultComboBoxModel<String>(OPTIONS_TIPE_ALG);
-	    DefaultComboBoxModel<String> versionGrafoData = new DefaultComboBoxModel<String>(OPTIONS_VERSION_GRAPH);
-	    tipeAlg.setModel(tipoAlgData);
-	    versionGraph.setModel(versionGrafoData);
+	    DefaultComboBoxModel<String> solutionType = new DefaultComboBoxModel<String>(SOLUTION_TYPE);
+	    this.solutionType = new JComboBox<String>(solutionType);
 	    infTime = new JLabel("Tiempo que tardo el algoritmo en encontrar la solución: NA");
 	    infTime.setHorizontalAlignment(SwingConstants.CENTER);
+	    aux2.add(this.solutionType);
 	    aux2.add(infTime);
 	    add(aux2);
 	    aux.add(delete);
@@ -114,25 +107,22 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 		if (str.equals(DELETE)) {
 			input.setText("");
 			output.setText("");
+			infTime.setForeground(Color.BLACK);
 			infTime.setText("Tiempo que tardo el algoritmo en encontrar la solución: NA");
 		} else if (str.equals(SOLVE)) {
-			if (!input.getText().isEmpty() && 
-					!OPTIONS_TIPE_ALG[tipeAlg.getSelectedIndex()].equals(OPTIONS_TIPE_ALG[0]) && 
-					!OPTIONS_VERSION_GRAPH[versionGraph.getSelectedIndex()].equals(OPTIONS_VERSION_GRAPH[0])) {
-				boolean BM = OPTIONS_TIPE_ALG[tipeAlg.getSelectedIndex()].equals(OPTIONS_TIPE_ALG[1]) && OPTIONS_VERSION_GRAPH[versionGraph.getSelectedIndex()].equals(OPTIONS_VERSION_GRAPH[2]); //Bellman y Matrix
-				boolean BL = OPTIONS_TIPE_ALG[tipeAlg.getSelectedIndex()].equals(OPTIONS_TIPE_ALG[1]) && OPTIONS_VERSION_GRAPH[versionGraph.getSelectedIndex()].equals(OPTIONS_VERSION_GRAPH[1]); //Bellman y List
-				boolean DL = OPTIONS_TIPE_ALG[tipeAlg.getSelectedIndex()].equals(OPTIONS_TIPE_ALG[2]) && OPTIONS_VERSION_GRAPH[versionGraph.getSelectedIndex()].equals(OPTIONS_VERSION_GRAPH[1]); //Dijkstra y List
-				boolean DM = OPTIONS_TIPE_ALG[tipeAlg.getSelectedIndex()].equals(OPTIONS_TIPE_ALG[2]) && OPTIONS_VERSION_GRAPH[versionGraph.getSelectedIndex()].equals(OPTIONS_VERSION_GRAPH[2]); //Dijkstra y Matrix
+			if (input.getText().isEmpty()) {
+				error("ENTRADA VACÍA");
+				return;
+			}
+			if (!SOLUTION_TYPE[solutionType.getSelectedIndex()].equals(SOLUTION_TYPE[0])) {
+				boolean BM = SOLUTION_TYPE[1].equals(SOLUTION_TYPE[solutionType.getSelectedIndex()]);
+				boolean DL = SOLUTION_TYPE[2].equals(SOLUTION_TYPE[solutionType.getSelectedIndex()]);
 				if (BM)
 					main.solveByBellmanMatrix(input.getText());
-				else if (BL)
-					main.solveByBellmanList(input.getText());
-				else if (DM)
-					main.solveByDijkstraMatrix(input.getText());
 				else if (DL)
 					main.solveByDijkstraList(input.getText());
 			} else
-				error("SELECCIONE TIPO DE ALGORITMO Y VERSION DEL GRAFO A USAR");
+				error("SELECCIONE TIPO DE SOLUCIÓN");
 		} else if (str.equals(GRAPHIC)) {
 			main.openJDialogGraphic(0,new int[][][] {});
 		}

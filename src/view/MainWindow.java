@@ -8,6 +8,7 @@ import java.awt.Toolkit;
 import model.Model;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileSystemView;
 
 @SuppressWarnings("serial")
 public class MainWindow extends JFrame {
@@ -16,7 +17,8 @@ public class MainWindow extends JFrame {
 	public static final int WIDTH = 750;
 	public static final int HEIGHT = (int) ((int)WIDTH*0.65);
 	public static final Color BACKGROUND = new Color(217, 217, 219);
-	public static String APP_NAME = "Problem Solver for Uva 558 - Wormholes";
+	public static final String APP_NAME = "Problem Solver for Uva 558 - Wormholes";
+	public static final String DESKTOP_PATH = FileSystemView.getFileSystemView().getHomeDirectory().getAbsolutePath()+"\\";
 	//Relaciones con Paneles
 	private PanelPrincipal pPrincipal;
 	private PanelGenerate pGenerate;
@@ -65,31 +67,11 @@ public class MainWindow extends JFrame {
 	public void solveByBellmanMatrix(String data) {
 		String[] solved = model.solveByBellmanMatrix(data); 
 		long time = Long.parseLong(solved[0]);
-		if (time==-1)
-			pPrincipal.changeOutput("ERROR DE ENTRADA");
-		else {
-			pPrincipal.changeOutput(solved[1]);
-			changeTime(time);
-		}
-	}
-	
-	public void solveByBellmanList(String data) {
-		String[] solved = model.solveByBellmanList(data); 
-		long time = Long.parseLong(solved[0]);
-		if (time==-1)
-			pPrincipal.changeOutput("ERROR DE ENTRADA");
-		else {
-			pPrincipal.changeOutput(solved[1]);
-			changeTime(time);
-		}
-	}
-	
-	public void solveByDijkstraMatrix(String data) {
-		String[] solved = model.solveByDijkstraMatrix(data); 
-		long time = Long.parseLong(solved[0]);
-		if (time==-1)
-			pPrincipal.changeOutput("ERROR DE ENTRADA");
-		else {
+		if (time==-1) {
+			String message = "ERROR DE ENTRADA";
+			pPrincipal.changeOutput(message);
+			pPrincipal.error(message);
+		} else {
 			pPrincipal.changeOutput(solved[1]);
 			changeTime(time);
 		}
