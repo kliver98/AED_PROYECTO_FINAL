@@ -501,31 +501,30 @@ public class GraphList<V extends Comparable<V>, A extends Comparable<A>> {
 	 * 
 	 * @param start
 	 *            : Nodo inicial, donde se empieza a hacer el Dijkstra
-	 * @param end
-	 *            : Nodo final, donde se termina el Dijkstra
 	 * @return Una lista de aristas que representa el menor camino entre dos vértices
 	 */
-	public List<Edge<V, A>> Dijkstra(V start, V end) {
+	public boolean Dijkstra(V start) {
 
-		List<Edge<V, A>> camino = null;
+		@SuppressWarnings("unused")
+//		List<Edge<V, A>> camino = null;
+		int conta = 0;
 
 		Vertex<V> inicio = searchVertex(start);
-		Vertex<V> fin = searchVertex(end);
 
-		if (inicio != null && fin != null && adjacencyList.get(inicio) != null) {
+		if (inicio != null && adjacencyList.get(inicio) != null) {
 
-			camino = new ArrayList<>();
-
+//			camino = new ArrayList<>();
+			
 			HashMap<V, Long> dist = new HashMap<>();
 
-			HashMap<V, ArrayList<Edge<V, A>>> caminos = new HashMap<>();
+//			HashMap<V, ArrayList<Edge<V, A>>> caminos = new HashMap<>();
 
 			for (Vertex<V> ver : vertexes) {
 				dist.put(ver.getData(), (long) Integer.MAX_VALUE);
 			}
 
 			dist.replace(start, 0l);
-			caminos.put(start, new ArrayList<>());
+//			caminos.put(start, new ArrayList<>());
 
 			PriorityQueue<Edge<V, A>> cola = new PriorityQueue<>(new Comparator<Edge<V, A>>() {
 
@@ -550,18 +549,18 @@ public class GraphList<V extends Comparable<V>, A extends Comparable<A>> {
 
 				if (dist.get(u) != Integer.MAX_VALUE) {
 
-					if (dist.get(u) + w < dist.get(v)) {
-
+					if (dist.get(u) + w < dist.get(v) && conta <= vertexes.size()) {
+						conta++;
 						dist.replace(v, dist.get(u) + w);
 
-						ArrayList<Edge<V, A>> temp = new ArrayList<>();
+//						ArrayList<Edge<V, A>> temp = new ArrayList<>();
 
-						for (Edge<V, A> ed : caminos.get(u)) {
-							temp.add(ed);
-						}
+//						for (Edge<V, A> ed : caminos.get(u)) {
+//							temp.add(ed);
+//						}
 
-						temp.add(actual);
-						caminos.put(v, temp);
+//						temp.add(actual);
+//						caminos.put(v, temp);
 
 						if (adjacencyList.containsKey(actual.getEnd())) {
 							for (Vertex<V> ver : adjacencyList.get(actual.getEnd()).keySet()) {
@@ -573,13 +572,12 @@ public class GraphList<V extends Comparable<V>, A extends Comparable<A>> {
 				}
 
 			}
-
-			camino = caminos.get(end);
-
+			
+			//Lista de caminos
+//			camino = caminos.get(end);
 		}
 
-		return camino;
-
+		return conta>vertexes.size();
 	}
 
 	/**
