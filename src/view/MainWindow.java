@@ -17,7 +17,7 @@ public class MainWindow extends JFrame {
 	/**
 	 * Constante que representa el ancho de la aplicación<br>
 	 */
-	public static final int WIDTH = 750;
+	public static final int WIDTH = (int)(Toolkit.getDefaultToolkit().getScreenSize().width/1.82);
 	/**
 	 * Constante que representa el alto de la aplicación<br>
 	 */

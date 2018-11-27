@@ -20,8 +20,19 @@ public class Join {
 	}
 	
 	public void pintar(Graphics g) {
-		g.setColor(new Color(rd.nextInt(255),rd.nextInt(255),rd.nextInt(255)));
+		Color color = new Color(rd.nextInt(255),rd.nextInt(255),rd.nextInt(255));
+		g.setColor(color);
 		g.drawLine(x1, y1, x2, y2);
+		g.setColor(color);
+		if (x1 > x2 && y1 > y2) {
+			g.drawString(value,x1-Math.abs((x1-x2)/2),y1-Math.abs((y1-y2)/2));
+		} else if (x1 > x2 && y1 < y2) {
+			g.drawString(value,x1-Math.abs((x1-x2)/2),y2-Math.abs((y1-y2)/2));
+		} else if (x1 < x2 && y1 > y2) {
+			g.drawString(value,x2-Math.abs((x1-x2)/2),y1-Math.abs((y1-y2)/2));
+		} else if (x1 < x2 && y1 < y2) {
+			g.drawString(value,x2-Math.abs((x1-x2)/2),y2-Math.abs((y1-y2)/2));
+		}
 	}
 
 	public int getX1() {

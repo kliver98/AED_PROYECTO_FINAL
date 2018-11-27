@@ -7,7 +7,7 @@ import java.util.Vector;
 
 public class Node {
 	
-	public static final int d = 60;
+	public static final int d = 55;
 	private int x,y,id;
 	private Random rd = new Random(System.nanoTime());
 	private Vector<Join> joins;
@@ -24,7 +24,7 @@ public class Node {
 		g.setColor(new Color(a,b,c));
 		g.fillOval(this.x-d/2, this.y - d/2, d, d);
 		g.setColor(Color.WHITE);
-		g.fillRect(x-10, y-10, 20, 12);
+		g.fillRect(x-20, y-10, 40, 12);
 		g.setColor(Color.BLACK);
 		g.drawString(id+"",x,y);
 	}
