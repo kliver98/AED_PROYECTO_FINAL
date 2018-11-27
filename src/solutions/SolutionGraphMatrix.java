@@ -642,34 +642,32 @@ public class SolutionGraphMatrix {
 				
 				dist.replace(inicio.getData(), 0l);
 				
-				for (int i = 0; i < adjacencyMatriz.length; i++) {
-					for (int j = 0; j < adjacencyMatriz[i].length; j++) {
-						if (adjacencyMatriz[i][j]!=null) {
-							for (Edge<V, A> edge: adjacencyMatriz[i][j]) {
-								Vertex<V> u = edge.getStart();
-								Vertex<V> v = edge.getEnd();
-								long w = edge.getWeight();
-								
-								if (dist.get(u.getData())!=Integer.MAX_VALUE && dist.get(u.getData())+w<dist.get(v.getData()))
-									dist.replace(v.getData(), dist.get(u.getData())+w);
-							}
-						}
+				ArrayList<Edge<V, A>> list = new ArrayList<>();
+				
+				for (int i = 0; i < adjacencyMatriz.length; i++) 
+					for (int j = 0; j < adjacencyMatriz[i].length; j++) 
+						if (adjacencyMatriz[i][j]!=null) 
+							for (Edge<V, A> edge: adjacencyMatriz[i][j]) 
+								list.add(edge);
+				
+				for (int i = 1; i < vertexes.size(); i++) {
+					for (int j = 0; j < list.size(); j++) {
+						Vertex<V> u = list.get(j).getStart();
+						Vertex<V> v = list.get(j).getEnd();
+						long w = list.get(j).getWeight();
+						
+						if (dist.get(u.getData())!=Integer.MAX_VALUE && dist.get(u.getData())+w<dist.get(v.getData()))
+							dist.replace(v.getData(), dist.get(u.getData())+w);
 					}
 				}
 				
-				for (int i = 0; i < adjacencyMatriz.length; i++) {
-					for (int j = 0; j < adjacencyMatriz[i].length; j++) {
-						if (adjacencyMatriz[i][j]!=null) {
-							for (Edge<V, A> edge: adjacencyMatriz[i][j]) {
-								Vertex<V> u = edge.getStart();
-								Vertex<V> v = edge.getEnd();
-								long w = edge.getWeight();
-								
-								if (dist.get(u.getData())!=Integer.MAX_VALUE && dist.get(u.getData())+w<dist.get(v.getData()))
-									st = true;
-							}
-						}
-					}
+				for (int j = 0; j < list.size(); j++) {
+					Vertex<V> u = list.get(j).getStart();
+					Vertex<V> v = list.get(j).getEnd();
+					long w = list.get(j).getWeight();
+					
+					if (dist.get(u.getData())!=Integer.MAX_VALUE && dist.get(u.getData())+w<dist.get(v.getData()))
+						st = true;
 				}
 			}
 			return st;
