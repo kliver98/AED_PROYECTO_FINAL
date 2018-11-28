@@ -154,6 +154,32 @@ public class testGraph {
 		
 	}
 	
+	//BellmanFord
+	private void setupEscenario9(){	
+		
+		relacionAGraMatriz = new GraphMatrix<>(6, true);
+		
+		//Agregando Vértices
+		relacionAGraMatriz.addVertex(0);
+		relacionAGraMatriz.addVertex(1);
+		relacionAGraMatriz.addVertex(2);
+		relacionAGraMatriz.addVertex(3);
+		relacionAGraMatriz.addVertex(4);
+		relacionAGraMatriz.addVertex(5);
+		
+		//Agregando Aristas con los vértices
+		relacionAGraMatriz.addEdge(5, 2, 1357);
+		relacionAGraMatriz.addEdge(1, 3, 1256);
+		relacionAGraMatriz.addEdge(3, 4, 262);
+		relacionAGraMatriz.addEdge(5, 0, 1271);
+		relacionAGraMatriz.addEdge(2, 0, 189);
+		relacionAGraMatriz.addEdge(1, 2, -189);
+		relacionAGraMatriz.addEdge(1, 4, 530);
+		relacionAGraMatriz.addEdge(1, 0, -470);
+		relacionAGraMatriz.addEdge(0, 1, -447);
+		relacionAGraMatriz.addEdge(4, 5, 1168);
+	}
+	
 	@Test
 	public void testAgregandoAristas(){
 		setupEscenario1();
@@ -271,5 +297,14 @@ public class testGraph {
 	public void testGrafoDirigido(){
 		setupEscenario8();
 		assertFalse(relacionAGrafo.isDirected());
+	}
+	
+	@Test
+	public void testBellmanFord() {
+		setupEscenario9();
+		assertTrue(relacionAGraMatriz.BellmanFord(0));
+		
+		setupEscenario7();
+		assertFalse(relacionAGraMatriz.BellmanFord(0));
 	}
 }
