@@ -8,7 +8,6 @@ import java.awt.Toolkit;
 import model.Model;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.filechooser.FileSystemView;
 
 @SuppressWarnings("serial")
 public class MainWindow extends JFrame {
@@ -17,7 +16,7 @@ public class MainWindow extends JFrame {
 	/**
 	 * Constante que representa el ancho de la aplicación<br>
 	 */
-	public static final int WIDTH = (int)(Toolkit.getDefaultToolkit().getScreenSize().width/1.82);
+	public static final int WIDTH = (int)(Toolkit.getDefaultToolkit().getScreenSize().width/1.68);//1.82);
 	/**
 	 * Constante que representa el alto de la aplicación<br>
 	 */
@@ -30,10 +29,6 @@ public class MainWindow extends JFrame {
 	 * Constante que representa el nombre de la aplicación<br>
 	 */
 	public static final String APP_NAME = "Problem Solver for Uva 558 - Wormholes";
-	/**
-	 * Constante que representa la ruta de escritorio del usuario que utiliza la aplicación<br>
-	 */
-	public static final String DESKTOP_PATH = FileSystemView.getFileSystemView().getHomeDirectory().getAbsolutePath()+"\\";
 	//Relaciones con Paneles
 	/**
 	 * Relación con el panel principal de la aplicación<br>
@@ -155,6 +150,20 @@ public class MainWindow extends JFrame {
 	 */
 	public void changeInput(String data) {
 		pPrincipal.changeInput(data);
+	}
+	/**
+	 * Método que reinicia el campo de archivo seleccionado del panel file<br>
+	 */
+	public void resetFileSelected() {
+		pFile.setArchivoSeleccionado("Ningún archivo seleccionado aún");
+	}
+	/**
+	 * Método que genera casos de prueba<br>
+	 * @param name del caso de prueba que se generara<br>
+	 * @return booleano indicando si se logro crear el caso de prueba<br>
+	 */
+	public boolean generateTestCases(String name) {
+		return model.generateTestCases(name);
 	}
 	/**
 	 * Método que inicializa la aplicación<br>

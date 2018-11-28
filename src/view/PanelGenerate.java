@@ -16,6 +16,7 @@ import javax.swing.SwingConstants;
 public class PanelGenerate extends JPanel implements ActionListener {
 
 	public static final String GENERATE = "Generar";
+	private JTextField file_name;
 	private MainWindow main;
 
 	public PanelGenerate(MainWindow main) {
@@ -26,26 +27,26 @@ public class PanelGenerate extends JPanel implements ActionListener {
 	
 	private void init() {
 		this.setBorder(BorderFactory.createMatteBorder(5,5,10,10,MainWindow.BACKGROUND));
-		this.setLayout(new GridLayout(4,1));
+		this.setLayout(new GridLayout(3,1)); //4 con cantidad
 		this.setPreferredSize(new Dimension((int)(MainWindow.WIDTH/3.5),(int)(MainWindow.HEIGHT/2)));
 		JLabel informacion = new JLabel("Generar casos de prueba");
 		informacion.setHorizontalAlignment(SwingConstants.CENTER);
 		JButton generar = new JButton(GENERATE);
 		generar.addActionListener(this);
 		generar.setBorder(BorderFactory.createMatteBorder(5,10,5,10,getBackground()));
-		JTextField cantidad = new JTextField();
-		JTextField nombre_archivo = new JTextField();
-		TextPrompt tp1 = new TextPrompt("Cantidad",cantidad);
-		tp1.changeAlpha(0.75f);
-	    tp1.changeStyle(Font.PLAIN);
-	    TextPrompt tp2 = new TextPrompt("Nombre del archivo",nombre_archivo);
+//		JTextField cantidad = new JTextField();
+		file_name = new JTextField();
+//		TextPrompt tp1 = new TextPrompt("Cantidad",cantidad);
+//		tp1.changeAlpha(0.75f);
+//	    tp1.changeStyle(Font.PLAIN);
+	    TextPrompt tp2 = new TextPrompt("Nombre del archivo",file_name);
 		tp2.changeAlpha(0.75f);
 	    tp2.changeStyle(Font.PLAIN);
-		cantidad.setBorder(generar.getBorder());
-		nombre_archivo.setBorder(generar.getBorder());
+//		cantidad.setBorder(generar.getBorder());
+	    file_name.setBorder(generar.getBorder());
 		add(informacion);
-		add(cantidad);
-		add(nombre_archivo);
+//		add(cantidad);
+		add(file_name);
 		add(generar);
 	}
 
@@ -53,7 +54,8 @@ public class PanelGenerate extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		String str = e.getActionCommand();
 		if (str.equals(GENERATE)) {
-			
+			String name = file_name.getText().isEmpty() ? System.currentTimeMillis()+"":file_name.getText();
+			main.generateTestCases(name);
 		}
 	}
 	

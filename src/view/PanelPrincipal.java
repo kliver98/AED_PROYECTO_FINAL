@@ -22,7 +22,7 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 	public static final String SOLVE = "SOLUCIONAR";
 	public static final String DELETE = "BORRAR";
 	public static final String GRAPHIC = "GRÁFICA 1mer caso";
-	public static final String[] SOLUTION_TYPE = {"Seleccione tipo de solución","Bellman Ford con Matriz de adyacencias","Dijkstra con Lista de adyacencias"};
+	public static final String[] SOLUTION_TYPE = {"Seleccione tipo de solución","Dijkstra con Lista de adyacencias","Bellman Ford con Matriz de adyacencias"};
 	private JTextArea input;
 	private JTextArea output;
 	private JLabel infTime;
@@ -109,14 +109,15 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 			output.setText("");
 			infTime.setForeground(Color.BLACK);
 			infTime.setText("Tiempo que tardo el algoritmo en encontrar la solución: NA");
+			main.resetFileSelected();
 		} else if (str.equals(SOLVE)) {
 			if (input.getText().isEmpty()) {
 				error("ENTRADA VACÍA");
 				return;
 			}
 			if (!SOLUTION_TYPE[solutionType.getSelectedIndex()].equals(SOLUTION_TYPE[0])) {
-				boolean BM = SOLUTION_TYPE[1].equals(SOLUTION_TYPE[solutionType.getSelectedIndex()]);
-				boolean DL = SOLUTION_TYPE[2].equals(SOLUTION_TYPE[solutionType.getSelectedIndex()]);
+				boolean BM = SOLUTION_TYPE[2].equals(SOLUTION_TYPE[solutionType.getSelectedIndex()]);
+				boolean DL = SOLUTION_TYPE[1].equals(SOLUTION_TYPE[solutionType.getSelectedIndex()]);
 				if (BM)
 					main.solveByBellmanMatrix(input.getText());
 				else if (DL)

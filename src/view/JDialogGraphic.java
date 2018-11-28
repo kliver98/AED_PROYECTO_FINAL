@@ -58,7 +58,7 @@ public class JDialogGraphic extends JDialog implements ActionListener,WindowList
 				+ " > A mayor tamaño de pantalla mayor espacio de dibujo.<br/>"
 				+ " > Si tiene muchos nodos, probablemente no se distigan bien en el area de dibujo.<br/>"
 				+ " > Si tiene muchas aristas, probablemente no se distigan bien en el area de dibujo.<br/>"
-				+ " > Si hay aristas superpuestas, lo más seguro aunque no del todo, es que hay ciclos entre los nodos que conecta.<br/>"
+				+ " > Si hay aristas superpuestas una encima de otra, lo más seguro aunque no del todo, es que hay ciclos entre los nodos que conecta.<br/>"
 				+ " > Si desea visualizar mejor la representación gráfica, cierre esta ventana y vuelva a"
 				+ " abrirla. Puede usar el botón de abajo o dando click en la x de la parte superior.<br/>"
 				+ "<br/><br/><br/><br/><br/>Aplicación desarrolada por<br/>Kliver - Joe - Christian"
@@ -77,8 +77,8 @@ public class JDialogGraphic extends JDialog implements ActionListener,WindowList
 		int y = 36;
 		nodes = new Node[V];
 		for (int i = 0; i < V; i++) {
-			int xP = rd.nextInt((int)(MainWindow.WIDTH*1.19)-(int)((x+Node.d/2)*5))+x+Node.d/2,yP = rd.nextInt((int)(MainWindow.HEIGHT*1.3)-(int)((y+Node.d/2)*1.7))+y+Node.d/2;
-			nodes[i] = new Node(xP,yP,i);
+			int xP = rd.nextInt((int)(MainWindow.WIDTH*1.15)-(int)((x+Node.d/2)*5))+x+Node.d/2,yP = rd.nextInt((int)(MainWindow.HEIGHT*1.3)-(int)((y+Node.d/2)*1.7))+y+Node.d/2;
+			nodes[i] = new Node(xP+rd.nextInt(30),yP,i);
 		}
 		for (int i = 1; i < edges.length; i++) {
 			int id1 = edges[i][0],id2 = edges[i][1];

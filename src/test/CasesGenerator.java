@@ -1,13 +1,18 @@
 package test;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.HashSet;
+import java.util.Random;
 
 /**
  * @author Joe Hernandez - Christian Tamayo- Kliver Daniel Giron
  */
 public class CasesGenerator {
 	
+	public static final String PATH = "./documents/CasosPruebas/CasoPrueba";
 	public static final int cases = 200;
 	public static final int stars = 1000;
 	public static final int holes = 2001;
@@ -15,13 +20,13 @@ public class CasesGenerator {
 	public static final int wF = 1001;
 	public static Random random;
 
-	public static void Generator() throws IOException {
+	public static boolean generator(String name) throws IOException {
 		random = new Random();
 		
 		int t = random.nextInt(cases);
 		
 		StringBuffer sb = new StringBuffer();
-		BufferedWriter out = new BufferedWriter(new FileWriter("./documents/CasosPruebas/CasoPrueba"));
+		BufferedWriter out = new BufferedWriter(new FileWriter(PATH+name));
 		
 		sb.append(t+"\n");
 		while (t-->0) {
@@ -57,10 +62,11 @@ public class CasesGenerator {
 		
 		out.write(sb.toString());
 		out.close();
+		
+		return new File(PATH+name).exists();
 	}
 	
 	public static void main(String[] args) throws IOException {
-		Generator();
-		System.out.println("OK");
+		generator("");
 	}
 }

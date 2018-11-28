@@ -3,10 +3,12 @@ package model;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import solutions.SolutionGraphList.GraphDijkstraList;
 import solutions.SolutionGraphMatrix.GraphBellmanMatrix;
+import test.CasesGenerator;
 
 public class Model {
 
@@ -153,6 +155,14 @@ public class Model {
 		rst[0] = (System.nanoTime()-ini)+"";
 		rst[1] = sb.toString();
 		return rst;
+	}
+	
+	public boolean generateTestCases(String name) {
+		try {
+			return CasesGenerator.generator(name);
+		} catch (IOException e) {
+			return false;
+		}
 	}
 	
 }

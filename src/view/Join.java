@@ -20,7 +20,7 @@ public class Join {
 	}
 	
 	public void pintar(Graphics g) {
-		Color color = new Color(rd.nextInt(255),rd.nextInt(255),rd.nextInt(255));
+		Color color = new Color(rd.nextInt(200)+55,rd.nextInt(200)+55,rd.nextInt(200)+55);
 		g.setColor(color);
 		g.drawLine(x1, y1, x2, y2);
 		g.setColor(color);
