@@ -8,7 +8,12 @@ import java.awt.Toolkit;
 import model.Model;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
+/**
+ * 
+ * @author Kliver Girón - Joe Hernandez - Christian Tamayo
+ * @version 0.9
+ *
+ */
 @SuppressWarnings("serial")
 public class MainWindow extends JFrame {
 

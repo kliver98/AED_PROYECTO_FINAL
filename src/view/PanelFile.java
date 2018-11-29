@@ -17,20 +17,39 @@ import javax.swing.SwingConstants;
 public class PanelFile extends JPanel implements ActionListener {
 
 	/**
-	 * Constante que representa la ruta de escritorio del usuario que utiliza la aplicación<br>
+	 * Constante que representa la ruta donde estan los casos de prueba<br>
 	 */
 	public static final String PATH = System.getProperty("user.dir")+"\\documents\\CasosPruebas\\";
+	/**
+	 * Constante que representa el botón de buscar<br>
+	 */
 	public static final String SEARCH = "BUSCAR";
+	/**
+	 * Atributo que representa la información del archivo cargado<br>
+	 */
 	private JLabel archivoSeleccionado;
+	/**
+	 * Relación con la ventana principal<br>
+	 */
 	private MainWindow main;
+	/**
+	 * Relación con JFileChooser, para poder desplegar y recibir la información del archivo seleccionado<br>
+	 */
 	private JFileChooser fileChooser;
 
+	/**
+	 * Construye un PanelFile<br>
+	 * @param main con la referencia de la ventana principal<br>
+	 */
 	public PanelFile(MainWindow main) {
 		super();
 		this.main = main;
 		init();
 	}
 	
+	/**
+	 * Método que inicializa las propiedades del panel<br>
+	 */
 	private void init() {
 		this.setBorder(BorderFactory.createMatteBorder(10,5,5,10,MainWindow.BACKGROUND));
 		this.setLayout(new GridLayout(3,1));
@@ -70,6 +89,10 @@ public class PanelFile extends JPanel implements ActionListener {
 		}
 	}
 
+	/**
+	 * Método que cambia la información del atributo que información de arhcivo seleccionado<br>
+	 * @param archivoSeleccionado
+	 */
 	public void setArchivoSeleccionado(String archivoSeleccionado) {
 		this.archivoSeleccionado.setText(archivoSeleccionado);
 	}

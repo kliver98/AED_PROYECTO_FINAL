@@ -157,6 +157,11 @@ public class Model {
 		return rst;
 	}
 	
+	/**
+	 * Método que genera un caso de prueba con un nombre recibido por parametro<br>
+	 * @param name del archivo de caso de prueba a generar<br>
+	 * @return booelano indicando si se creo el archivo<br>
+	 */
 	public boolean generateTestCases(String name) {
 		try {
 			return CasesGenerator.generator(name);

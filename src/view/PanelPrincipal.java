@@ -19,22 +19,56 @@ import javax.swing.SwingConstants;
 @SuppressWarnings("serial")
 public class PanelPrincipal extends JPanel implements ActionListener {
 
+	/**
+	 * Constante que representa el botón de solucionar problema<br>
+	 */
 	public static final String SOLVE = "SOLUCIONAR";
+	/**
+	 * Constante que representa el botón de borrar campos<br>
+	 */
 	public static final String DELETE = "BORRAR";
+	/**
+	 * Constante que representa el botón de gráfica del 1mer caso<br>
+	 */
 	public static final String GRAPHIC = "GRÁFICA 1mer caso";
+	/**
+	 * Constante que representa los tipos de soluciones para el problema<br>
+	 */
 	public static final String[] SOLUTION_TYPE = {"Seleccione tipo de solución","Dijkstra con Lista de adyacencias","Bellman Ford con Matriz de adyacencias"};
+	/**
+	 * Atributo que representa el JTextArea de input del problema<br>
+	 */
 	private JTextArea input;
+	/**
+	 * Atributo que representa el JTextArea del output del problema<br>
+	 */
 	private JTextArea output;
+	/**
+	 * Atributo que representa la información del tiempo que demoro el algoritmo en solucionar la input<br>
+	 */
 	private JLabel infTime;
+	/**
+	 * Atributo tipo JComboBox que representa el tipo de solución que el usuario eligió<br>
+	 */
 	private JComboBox<String> solutionType;
+	/**
+	 * Atributo con la referencia de la ventana principal<br>
+	 */
 	private MainWindow main;
 
+	/**
+	 * Constuye un PanelPrincipal
+	 * @param main con la referencia de la ventana principal<br>
+	 */
 	public PanelPrincipal(MainWindow main) {
 		super();
 		this.main = main;
 		init();
 	}
 	
+	/**
+	 * Método que inicializa las porpiedades y atributos del panel<br>
+	 */
 	private void init() {
 		this.setBorder(BorderFactory.createMatteBorder(10,10,10,5,MainWindow.BACKGROUND));
 		this.setLayout(new GridLayout(5,1));
@@ -83,20 +117,36 @@ public class PanelPrincipal extends JPanel implements ActionListener {
 	    add(aux);
 	}
 	
+	/**
+	 * Método que cambai la información del tiempo que el algoritmo demoro en resolver la input<br>
+	 * @param tiempo con la información del nuevo tiempo<br>
+	 */
 	public void changeTime(long tiempo) {
 		infTime.setForeground(Color.BLACK);
 		infTime.setText("Tiempo que tardo el algoritmo en encontrar la solución: "+tiempo+" ns");
 	}
 	
+	/**
+	 * Método que indicada medinate un mensaje, una acción mál ejecutada por parte del usuario<br>
+	 * @param message con la información del mensaje a mostrar<br>
+	 */
 	public void error(String message) {
 		infTime.setText(message);
 		infTime.setForeground(Color.RED);
 	}
 	
+	/**
+	 * Método que cambia el JTextField de output<br>
+	 * @param data con la nueva información para cambair<br>
+	 */
 	public void changeOutput(String data) {
 		output.setText(data);
 	}
 	
+	/**
+	 * Método que cambia la información de la entrada<br>
+	 * @param data con la información que se cambiara<br>
+	 */
 	public void changeInput(String data) {
 		input.setText(data);
 	}

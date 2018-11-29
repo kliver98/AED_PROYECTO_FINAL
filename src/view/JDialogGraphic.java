@@ -10,7 +10,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.Random;
-
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -20,24 +19,46 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class JDialogGraphic extends JDialog implements ActionListener,WindowListener {
 	
+	/**
+	 * Constante que representa el boton de cerrar ventana<br>
+	 */
 	public static final String CLOSE = "Cerrar ventana";
+	/**
+	 * Arreglo con los nodos que se van a dibujar<br>
+	 */
 	private Node[] nodes;
+	/**
+	 * Atributo que representa el número de vertices del grafo<br>
+	 */
 	private int V;
-	private JPanel canvas;
+	/**
+	 * Atributo para obtener un número random<br>
+	 */
 	private Random rd = new Random(System.nanoTime());
+	/**
+	 * Relación con la ventana principal<br>
+	 */
 	private MainWindow main;
 	
+	/**
+	 * Crea un JDialogGraphic<br>
+	 * @param edges con la informción de las aristas del grafo a dibujar<br>
+	 * @param main con la referencia de la ventana principal<br>
+	 */
 	public JDialogGraphic(int[][] edges, MainWindow main) {
 		super(main);
 		V = edges[0][0];
 		convertNodes(edges);
 		this.main = main;
-		this.addWindowListener(this);
+		addWindowListener(this);
 		init();
 	}
 	
+	/**
+	 * Método que inicializa las propiedades del JDialog<br>
+	 */
 	private void init() {
-		canvas = new JPanel(new GridLayout(1,1));
+		JPanel canvas = new JPanel(new GridLayout(1,1));
 		setLayout(new BorderLayout());
 		setPreferredSize(new Dimension((int)(MainWindow.WIDTH*1.3),(int)(MainWindow.HEIGHT*1.3)));
 		setResizable(false);
@@ -72,18 +93,21 @@ public class JDialogGraphic extends JDialog implements ActionListener,WindowList
 		pack();
 	}
 	
+	/**
+	 * Método que convierte un arreglo bidimensional de aristas a un arreglo de nodos<br>
+	 * @param edges con la información de las aristas<br>
+	 */
 	public void convertNodes(int[][] edges) {
-		int x = 13;
-		int y = 36;
+		int x = Node.d/4;
+		int y = (int)(Node.d/1.2);
 		nodes = new Node[V];
 		for (int i = 0; i < V; i++) {
-			int xP = rd.nextInt((int)(MainWindow.WIDTH*1.15)-(int)((x+Node.d/2)*5))+x+Node.d/2,yP = rd.nextInt((int)(MainWindow.HEIGHT*1.3)-(int)((y+Node.d/2)*1.7))+y+Node.d/2;
+			int xP = rd.nextInt((int)(MainWindow.WIDTH*1.15)-(int)((x+Node.d/2)*5))+x+Node.d/2,yP = rd.nextInt((int)(MainWindow.HEIGHT*1.3)-(int)((y+Node.d/2)*1.85))+y+Node.d/2;
 			nodes[i] = new Node(xP+rd.nextInt(30),yP,i);
 		}
 		for (int i = 1; i < edges.length; i++) {
 			int id1 = edges[i][0],id2 = edges[i][1];
-			int x1 = nodes[id1].getX(),x2 = nodes[id2].getX(),y1 = nodes[id1].getY(),y2 = nodes[id2].getY();
-			Join act = new Join(x1,y1,x2,y2,edges[i][2]+"");
+			Join act = new Join(edges[i][2]+"",nodes[id1],nodes[id2]);
 			act.setId1(id1);
 			act.setId2(id2);
 			nodes[id1].getJoins().add(act);
@@ -94,15 +118,15 @@ public class JDialogGraphic extends JDialog implements ActionListener,WindowList
 	public void paint(Graphics g) {
 		super.paint(g);
 		for (int i = 0; i < nodes.length; i++) {
-			for (int j = 0; j < nodes[i].getJoins().size(); j++) {
-				nodes[i].getJoins().get(j).pintar(g);
+			for (Join j : nodes[i].getJoins()) {
+		        j.paintLines(g,V<36);
 			}
 		}
 		for (Node node : nodes) {
-			node.pintar(g);
+			node.paint(g);
 		}
 	}
-
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String str = e.getActionCommand();

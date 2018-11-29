@@ -15,16 +15,32 @@ import javax.swing.SwingConstants;
 @SuppressWarnings("serial")
 public class PanelGenerate extends JPanel implements ActionListener {
 
+	/**
+	 * Constante que representa el botón de generar casos de prueba<br>
+	 */
 	public static final String GENERATE = "Generar";
+	/**
+	 * Atributo que representa el JTextField del nombre del arhcivo a generar<br>
+	 */
 	private JTextField file_name;
+	/**
+	 * Relación con la ventana principal<br>
+	 */
 	private MainWindow main;
 
+	/**
+	 * Construye un PanelGenerate<br>
+	 * @param main con la referencia de la ventana principal<br>
+	 */
 	public PanelGenerate(MainWindow main) {
 		super();
 		this.main = main;
 		init();
 	}
 	
+	/**
+	 * Método que inicializa las propiedades de la ventana principal<br>
+	 */
 	private void init() {
 		this.setBorder(BorderFactory.createMatteBorder(5,5,10,10,MainWindow.BACKGROUND));
 		this.setLayout(new GridLayout(3,1)); //4 con cantidad
