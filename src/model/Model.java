@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import solutions.SolutionGraphList.GraphDijkstraList;
 import solutions.SolutionGraphMatrix.GraphBellmanMatrix;
+import structures.GraphMatrix;
 import test.CasesGenerator;
 
 public class Model {
@@ -87,6 +88,64 @@ public class Model {
 			}
 		}
 		return edges;
+	}
+	
+	/**
+	 * Metodo que devuelve las aristas que llevan hacia el ciclo infinito
+	 * @param data de las entradas que halla actualmente<br>
+	 * @return arreglo bidimensional con las aristas del primer caso de entrada introducido<br>
+	 */
+	public int[][] getCycleNegative(String data){
+		String firstGraph = firstInput(data);
+		String[] rst = solveByBellmanMatrix(firstGraph);
+		int rs[][] = null;
+		if (!rst[0].equals("-1")) {
+			if (rst[1].equals("possible\n")) {
+				List<String> d = convertInput(data);
+				int v = Integer.parseInt(d.get(1).split(" ")[0]);
+				int e = Integer.parseInt(d.get(1).split(" ")[1]);
+				GraphMatrix<Integer, String> graphMatrix = new GraphMatrix<>(v, true);
+				
+				for (int i = 0; i < e; i++) {
+					int src = Integer.parseInt(d.get(2+i).split(" ")[0]);
+					int dst = Integer.parseInt(d.get(2+i).split(" ")[1]);
+					int w = Integer.parseInt(d.get(2+i).split(" ")[2]);
+					
+					graphMatrix.addEdge(src, dst, w);
+				}
+				
+				graphMatrix.BellmanFord(0);
+				
+				rs = new int[graphMatrix.getCycle().size()][3];
+				
+				for (int i = 0; i < graphMatrix.getCycle().size(); i++) {
+					rs[i][0] = graphMatrix.getCycle().get(i).getStart().getData();
+					rs[i][1] = graphMatrix.getCycle().get(i).getEnd().getData();
+					rs[i][2] = (int) graphMatrix.getCycle().get(i).getWeight();
+				}
+			}
+		}
+		return rs;
+	}
+	
+	
+	/**
+	 * Metodo que se encarga de obtener el primer grafo de las entradas
+	 * @param data de las entradas que halla actualmente<br>
+	 * @return 
+	 */
+	public String firstInput(String data) {
+		String[] arr = data.split("\n");
+		StringBuffer sBuffer = new StringBuffer();
+		sBuffer.append("1\n");
+		int v = Integer.parseInt(arr[1].split(" ")[0]);
+		int e = Integer.parseInt(arr[1].split(" ")[1]);
+		
+		sBuffer.append(v+" "+e+"\n");
+		for (int i = 0; i < e; i++) 
+			sBuffer.append(arr[2+i]+"\n");
+		
+		return sBuffer.toString();
 	}
 	
 	/**

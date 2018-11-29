@@ -40,6 +40,11 @@ public class GraphMatrix<V extends Comparable<V>, A extends Comparable<A>> {
 	private List<Edge<V, A>>[][] caminosFloyd;
 
 	/**
+	 * Lista donde estan las aristas que llevan al ciclo
+	 */
+	private List<Edge<V, A>> cycle;
+	
+	/**
 	 * Método constructor del Grafo Matriz
 	 */
 	public GraphMatrix(int v) {
@@ -49,6 +54,7 @@ public class GraphMatrix<V extends Comparable<V>, A extends Comparable<A>> {
 		vertexes = new HashSet<>();
 		indVer = new HashMap<>();
 		verInd = new TreeMap<>();
+		cycle = new ArrayList<>();
 	}
 
 	/**
@@ -64,6 +70,7 @@ public class GraphMatrix<V extends Comparable<V>, A extends Comparable<A>> {
 		vertexes = new HashSet<>();
 		indVer = new HashMap<>();
 		verInd = new TreeMap<>();
+		cycle = new ArrayList<>();
 	}
 
 	/**
@@ -627,6 +634,8 @@ public class GraphMatrix<V extends Comparable<V>, A extends Comparable<A>> {
 				}
 			}
 			
+			int conta = 0;
+			Vertex<V> in = null;
 			for (int i = 0; i < adjacencyMatriz.length; i++) {
 				for (int j = 0; j < adjacencyMatriz[i].length; j++) {
 					if (adjacencyMatriz[i][j]!=null) {
@@ -635,8 +644,15 @@ public class GraphMatrix<V extends Comparable<V>, A extends Comparable<A>> {
 							Vertex<V> v = edge.getEnd();
 							long w = edge.getWeight();
 							
-							if (dist.get(u.getData())!=Integer.MAX_VALUE && dist.get(u.getData())+w<dist.get(v.getData()))
+							if (conta==0) 
+								cycle.add(edge);
+							if (in!=null && v.getData().equals(in.getData())) 
+								conta++;
+							
+							if (dist.get(u.getData())!=Integer.MAX_VALUE && dist.get(u.getData())+w<dist.get(v.getData())) {
 								st = true;
+								in = u;
+							}
 						}
 					}
 				}
@@ -644,7 +660,7 @@ public class GraphMatrix<V extends Comparable<V>, A extends Comparable<A>> {
 		}
 		return st;
 	}
-
+	
 	/**
 	 * Este método se encarga de dar el mejor camino entre dos vértices
 	 * 
@@ -679,6 +695,14 @@ public class GraphMatrix<V extends Comparable<V>, A extends Comparable<A>> {
 	 */
 	public boolean isDirected() {
 		return directed;
+	}
+
+	public List<Edge<V, A>> getCycle() {
+		return cycle;
+	}
+
+	public void setCycle(List<Edge<V, A>> cycle) {
+		this.cycle = cycle;
 	}
 
 }
