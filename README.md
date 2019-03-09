@@ -1,6 +1,8 @@
 # AED_PROYECTO_FINAL
-Final project of Algorithms and data structures 2018-2
 
-Joe Meneses
-Christian Tamayo
+A Judge Problem Solver to know what would be the answer of a specific input gived
+
+Created by
+Joe Meneses,
+Christian Tamayo,
 Kliver Girón
